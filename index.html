@@ -11824,6 +11824,15 @@
       .ast-builder-grid-row-3-equal .ast-builder-grid-row {
         grid-template-columns: 3fr 1fr 3fr;
       }
+      .carousel {
+        min-height: 300px;
+        height: auto;
+      }
+      @media (max-width: 768px){
+        .elementor-background-slideshow{
+          min-height: 250px;
+        }
+      }
     </style>
     <meta
       name="viewport"
@@ -11858,6 +11867,45 @@
         s.autoplay && s.autoplay.start && s.autoplay.start();
       });
     </script>
+    <script>
+      (function () {
+        function init() {
+          // Asegura que Swiper exista (por defer/delay JS en mobile)
+          if (!window.Swiper) return;
+
+          const els = document.querySelectorAll(".elementor-background-slideshow");
+          if (!els.length) return;
+
+          els.forEach((el) => {
+            // evita doble init
+            if (el.dataset.swiperInited) return;
+            el.dataset.swiperInited = "1";
+
+            const s = new Swiper(el, {
+              loop: true,
+              effect: "fade",
+              speed: 500,
+              autoplay: { delay: 3000, disableOnInteraction: false }
+            });
+
+            if (s.autoplay && s.autoplay.start) s.autoplay.start();
+          });
+        }
+
+        // intenta al cargar DOM y también después (por optimizadores)
+        document.addEventListener("DOMContentLoaded", init);
+        window.addEventListener("load", init);
+
+        // reintentos cortos por si Swiper llega tarde en mobile
+        let tries = 0;
+        const t = setInterval(() => {
+          init();
+          tries++;
+          if (tries > 20) clearInterval(t); // ~2s si interval 100ms
+        }, 100);
+      })();
+      </script>
+
   </head>
   <body
     class="wp-singular page-template page-template-elementor_canvas page page-id-3028 wp-custom-logo wp-theme-astra unselectable eio-default ehf-template-astra ehf-stylesheet-astra ast-page-builder-template ast-no-sidebar astra-4.8.7 ast-single-post ast-mobile-inherit-site-logo ast-replace-site-logo-transparent ast-inherit-site-logo-transparent ast-hfb-header elementor-default elementor-template-canvas elementor-kit-1316 elementor-page elementor-page-3028 ast-desktop e--ua-firefox"
