@@ -12870,8 +12870,30 @@
                     if (!valor) return ""; // Si el valor es nulo, retorna una cadena vacía
                     return decodeURIComponent(valor).trim(); // Decodifica caracteres URL y elimina espacios
                   }
+                  const API_KEY = "AIzaSyCdeTgHYYtj2XydHrpZPE0nkQlRFex57k8";
+                  const SPREADSHEET_ID = "1NkHmjcaLM-3-BTvS9EyXZ2_sgNDduw23woI0RLtruHc";
+                  const SHEET_NAME = "Invitados"; // <-- cámbialo por el nombre real de la pestaña
+                  const RANGE = "A:Z";  
+                  async function buscarFilaPorN(valorN) {
+                    
+                    // Lee toda la tabla (simple y funciona bien si no son miles de filas)
+                    const range = encodeURIComponent(`${SHEET_NAME}!${RANGE}`);
+                    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}?key=${API_KEY}`;
+
+                    const res = await fetch(url);
+                    const data = await res.json();
+
+                    if (!data.values || data.values.length === 0) return null;
+
+                    // Ej: si la primera fila es cabecera, puedes empezar en i=1
+                    const filas = data.values;
+                    // Busca coincidencia exacta en columna A (index 0)
+                    const fila = filas.find(r => (r[16] || "").toString().trim() === valorN);
+
+                    return fila || null;
+                  }
                   // Función para actualizar el contenido dinámico basado en las variables 'n' y 'm'
-                  function actualizarContenido() {
+                  async function actualizarContenido() {
                     // Obtener los parámetros 'n' y 'm' de la URL
                     const urlParams = new URLSearchParams(
                       window.location.search
@@ -12879,22 +12901,39 @@
                     // Obtener y sanitizar los valores
                     const valorN = sanitizarValor(urlParams.get("n"));
                     const valorM = sanitizarValor(urlParams.get("m"));
-                    // Verificar y actualizar contenido de la clase 'variable-n'
-                    document
-                      .querySelectorAll(".variable-n")
-                      .forEach(function (el) {
-                        el.textContent = valorN || "Sin pases"; // Mostrar 'Invitado' si está vacío
+                    // const API = "AIzaSyCdeTgHYYtj2XydHrpZPE0nkQlRFex57k8";
+                    // const ID_CLIENT = "663625138811-o2sd98ehot530sd6och5b3vckk1qjbec.apps.googleusercontent.com";
+                    try {
+                      const fila = await buscarFilaPorN(valorN);
+                    
+                      // Verificar y actualizar contenido de la clase 'variable-n'
+                      document
+                        .querySelectorAll(".variable-n")
+                        .forEach(function (el) {
+                          const pases = parseInt(fila[11], 10);
+
+                          if (!pases || pases <= 0) {
+                            el.textContent = "Sin pases";
+                          } else if (pases === 1) {
+                            el.textContent = "1 pase";
+                          } else {
+                            el.textContent = `${pases} pases`;
+                          }
                       });
-                    // Verificar si el valor de 'm' es un número válido
-                    const pasesTexto = isNaN(parseInt(valorM))
-                      ? valorM
-                      : `${parseInt(valorM)} pases`; // Si es un número, añadir "pases"
-                    // Actualizar contenido de la clase 'variable-m'
-                    document
-                      .querySelectorAll(".variable-m")
-                      .forEach(function (el) {
-                        el.textContent = pasesTexto || "Invitado"; // Mostrar 'Sin pases' si está vacío
-                      });
+                      // Verificar si el valor de 'm' es un número válido
+                      const pasesTexto = isNaN(parseInt(valorM))
+                        ? valorM
+                        : `${parseInt(valorM)} pases`; // Si es un número, añadir "pases"
+                      // Actualizar contenido de la clase 'variable-m'
+                      document
+                        .querySelectorAll(".variable-m")
+                        .forEach(function (el) {
+                          el.textContent = fila[0] || "Invitado"; // Mostrar 'Sin pases' si está vacío
+                        });
+                    } catch (e) {
+                      console.error(e);
+                      document.querySelectorAll(".variable-m").forEach(el => el.textContent = "Error leyendo Sheet");
+                    }
                   }
                   // Ejecutar la función al cargar la página
                   document.addEventListener(
