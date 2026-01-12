@@ -12905,7 +12905,21 @@
                     // const ID_CLIENT = "663625138811-o2sd98ehot530sd6och5b3vckk1qjbec.apps.googleusercontent.com";
                     try {
                       const fila = await buscarFilaPorN(valorN);
-                    
+                      
+                      // --- OCULTAR botones si ya respondió (fila[17]) ---
+                      const respuesta = (fila?.[17] || "").toString().trim().toUpperCase(); // "SI" / "NO"
+                      const btnConfirmar = document.getElementById("btnConfirmar");
+                      const btnRechazar = document.getElementById("btnRechazar");
+
+                      if (respuesta === "SI" || respuesta === "NO") {
+                        if (btnConfirmar) btnConfirmar.style.display = "none";
+                        if (btnRechazar) btnRechazar.style.display = "none";
+                      } else {
+                        // Si aún no hay respuesta, asegúrate que se vean
+                        if (btnConfirmar) btnConfirmar.style.display = "";
+                        if (btnRechazar) btnRechazar.style.display = "";
+                      }
+
                       // Verificar y actualizar contenido de la clase 'variable-n'
                       document
                         .querySelectorAll(".variable-n")
@@ -12914,6 +12928,8 @@
 
                           if (!pases || pases <= 0) {
                             el.textContent = "Sin pases";
+                            if (btnConfirmar) btnConfirmar.style.display = "none";
+                            if (btnRechazar) btnRechazar.style.display = "none";
                           } else if (pases === 1) {
                             el.textContent = "1 pase";
                           } else {
@@ -12946,6 +12962,66 @@
                     "DOMContentLoaded",
                     actualizarContenido
                   );
+                  const RSVP_URL = "https://script.google.com/macros/s/AKfycbwPfIFdfKGNCBxRT_1S9j18yTDkwv4VNKtRKfD6yS8jMt137v3JToUZ9D7VXGpT-TXw8g/exec";
+                  const RSVP_TOKEN = "a4c91f3b2d0e7c6f9e8b1a4f0c2d9e7b8a6f4d2c1e0a9b8c7d6e5f4a3b2";
+
+                  async function enviarRespuesta(n, respuesta) {
+                    const payload = JSON.stringify({ token: RSVP_TOKEN, n, respuesta });
+
+                    const res = await fetch(RSVP_URL, {
+                      method: "POST",
+                      // ✅ IMPORTANTE: SIMPLE REQUEST → sin preflight
+                      headers: { "Content-Type": "text/plain;charset=utf-8" },
+                      body: payload,
+                    });
+
+                    return await res.json();
+                  }
+
+
+                  function esperarElemento(id, { timeoutMs = 8000 } = {}) {
+                    return new Promise((resolve, reject) => {
+                      const start = Date.now();
+                      const tick = () => {
+                        const el = document.getElementById(id);
+                        if (el) return resolve(el);
+                        if (Date.now() - start > timeoutMs) return reject(new Error(`No apareció #${id}`));
+                        setTimeout(tick, 50);
+                      };
+                      tick();
+                    });
+                  }
+
+                  document.addEventListener("DOMContentLoaded", async () => {
+                    try {
+                      const btnConfirmar = await esperarElemento("btnConfirmar");
+                      const btnRechazar = await esperarElemento("btnRechazar");
+
+                      // Como tus botones son <a>, evita que navegue (y más con target="_blank")
+                      btnConfirmar.addEventListener("click", async (e) => {
+                        e.preventDefault();
+
+                        const n = (new URLSearchParams(window.location.search).get("n") || "").trim();
+                        const r = await enviarRespuesta(n, "SI");
+                        if (r.ok) alert("Excelente. Gracias por confirmar tu asistencia");
+                        else alert("Error: " + (r.error || "desconocido"));
+                      });
+
+                      btnRechazar.addEventListener("click", async (e) => {
+                        e.preventDefault();
+
+                        const n = (new URLSearchParams(window.location.search).get("n") || "").trim();
+                        const r = await enviarRespuesta(n, "NO");
+                        if (r.ok) alert("Lamentamos que no estes presente con nosotros. Agradecemos tu confirmación");
+                        else alert("Error: " + (r.error || "desconocido"));
+                      });
+
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  });
+
+
                 </script>
               </div>
             </div>
@@ -16232,9 +16308,7 @@
                 <div class="elementor-button-wrapper">
                   <a
                     class="elementor-button elementor-button-link elementor-size-sm"
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSfICMxIHYlbpCAenwrBIQ0LW1hKOmjLMoaj-ZO29tReoWH_MQ/viewform?usp=sf_link"
-                    target="_blank"
-                    rel="noopener"
+                    id="btnConfirmar"
                   >
                     <span class="elementor-button-content-wrapper">
                       <span class="elementor-button-text"
@@ -16256,9 +16330,7 @@
                 <div class="elementor-button-wrapper">
                   <a
                     class="elementor-button elementor-button-link elementor-size-sm"
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSfICMxIHYlbpCAenwrBIQ0LW1hKOmjLMoaj-ZO29tReoWH_MQ/viewform?usp=sf_link"
-                    target="_blank"
-                    rel="noopener"
+                    id="btnRechazar"
                   >
                     <span class="elementor-button-content-wrapper">
                       <span class="elementor-button-text"
