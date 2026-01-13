@@ -4709,7 +4709,7 @@
         .elementor-element.elementor-element-54f67e1
         > .elementor-motion-effects-container
         > .elementor-motion-effects-layer {
-        background-image: url("https://invitali.com/wp-content/uploads/2025/06/carmesi-muestra-copia.webp");
+        background-image: url("wp-content/uploads/fotos/image3.jpg");
         background-position: center center;
       }
       .elementor-3028 .elementor-element.elementor-element-54f67e1::before,
@@ -12954,7 +12954,10 @@
                         });
                     } catch (e) {
                       console.error(e);
-                      document.querySelectorAll(".variable-m").forEach(el => el.textContent = "Error leyendo Sheet");
+                      document.querySelectorAll(".variable-m").forEach(el => el.textContent = "Invitado");
+                      document.querySelectorAll(".variable-n").forEach(el => el.textContent = "Sin pases");
+                      if (btnConfirmar) btnConfirmar.style.display = "none";
+                      if (btnRechazar) btnRechazar.style.display = "none";
                     }
                   }
                   // Ejecutar la función al cargar la página
@@ -13000,7 +13003,8 @@
                       // Como tus botones son <a>, evita que navegue (y más con target="_blank")
                       btnConfirmar.addEventListener("click", async (e) => {
                         e.preventDefault();
-
+                        if (btnConfirmar) btnConfirmar.style.display = "none";
+                        if (btnRechazar) btnRechazar.style.display = "none";
                         const n = (new URLSearchParams(window.location.search).get("n") || "").trim();
                         const r = await enviarRespuesta(n, "SI");
                         if (r.ok) alert("Excelente. Gracias por confirmar tu asistencia");
@@ -13009,7 +13013,8 @@
 
                       btnRechazar.addEventListener("click", async (e) => {
                         e.preventDefault();
-
+                        if (btnConfirmar) btnConfirmar.style.display = "none";
+                        if (btnRechazar) btnRechazar.style.display = "none";
                         const n = (new URLSearchParams(window.location.search).get("n") || "").trim();
                         const r = await enviarRespuesta(n, "NO");
                         if (r.ok) alert("Lamentamos que no estes presente con nosotros. Agradecemos tu confirmación");
@@ -13254,7 +13259,7 @@
               >
                 <div class="elementor-widget-container">
                   <h2 class="elementor-heading-title elementor-size-default">
-                    AGOSTO
+                    MARZO
                   </h2>
                 </div>
               </div>
@@ -14845,7 +14850,7 @@
                     <div
                       class="elementor-background-slideshow__slide__image elementor-ken-burns elementor-ken-burns--in"
                       style="
-                        background-image: url('https://invitali.com/wp-content/uploads/2024/10/muestras-novios-16.webp');
+                        background-image: url('wp-content/uploads/fotos/Fondos1.jpg');
                       "
                     ></div>
                   </div>
@@ -15013,10 +15018,11 @@
                     role="group"
                     aria-label="1 / 9"
                   >
+                  <!-- Aqui comienza las fotos en carousel -->
                     <div
                       class="elementor-background-slideshow__slide__image elementor-ken-burns elementor-ken-burns--in"
                       style="
-                        background-image: url('https://invitali.com/wp-content/uploads/2024/10/muestras-novios-16.webp');
+                        background-image: url('wp-content/uploads/fotos/Fondos1.jpg'); 
                       "
                     ></div>
                   </div>
@@ -15035,7 +15041,7 @@
                     <div
                       class="elementor-background-slideshow__slide__image elementor-ken-burns elementor-ken-burns--in"
                       style="
-                        background-image: url('https://invitali.com/wp-content/uploads/2024/10/muestras-novios-25.webp');
+                        background-image: url('wp-content/uploads/fotos/image4.jpg');
                       "
                     ></div>
                   </div>
@@ -15406,16 +15412,17 @@
                   data-elementor-lightbox-title="muestras novios 3"
                   data-e-action-hash="#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJpZCI6MTcxMTgsInVybCI6Imh0dHBzOlwvXC9pbnZpdGFsaS5jb21cL3dwLWNvbnRlbnRcL3VwbG9hZHNcLzIwMjRcLzEwXC9tdWVzdHJhcy1ub3Zpb3MtMy53ZWJwIn0%3D"
                 >
+                  <!-- Aqui comienza la galeria de fotos -->
                   <img
                     loading="lazy"
                     decoding="async"
                     width="698"
                     height="1024"
-                    src="https://invitali.com/wp-content/uploads/2024/10/muestras-novios-3-698x1024.webp"
+                    src="wp-content/uploads/fotos/Fondos1.jpg"
                     class="attachment-large size-large wp-image-17118"
                     alt=""
                     srcset="
-                      https://invitali.com/wp-content/uploads/2024/10/muestras-novios-3-698x1024.webp   698w,
+                      wp-content/uploads/fotos/Fondos1.jpg   698w,
                       https://invitali.com/wp-content/uploads/2024/10/muestras-novios-3-205x300.webp    205w,
                       https://invitali.com/wp-content/uploads/2024/10/muestras-novios-3-768x1126.webp   768w,
                       https://invitali.com/wp-content/uploads/2024/10/muestras-novios-3-1047x1536.webp 1047w,
@@ -15552,11 +15559,11 @@
                     decoding="async"
                     width="700"
                     height="1024"
-                    src="https://invitali.com/wp-content/uploads/2024/10/muestras-novios-26-700x1024.webp"
+                    src="wp-content/uploads/fotos/image4.jpg"
                     class="attachment-large size-large wp-image-17117"
                     alt=""
                     srcset="
-                      https://invitali.com/wp-content/uploads/2024/10/muestras-novios-26-700x1024.webp   700w,
+                      wp-content/uploads/fotos/image4.jpg   700w,
                       https://invitali.com/wp-content/uploads/2024/10/muestras-novios-26-205x300.webp    205w,
                       https://invitali.com/wp-content/uploads/2024/10/muestras-novios-26-768x1124.webp   768w,
                       https://invitali.com/wp-content/uploads/2024/10/muestras-novios-26-1050x1536.webp 1050w,
@@ -16392,7 +16399,7 @@
                   />
                 </a> -->
                 <a
-                  href="https://wa.me/528446005641/?text=Buenos%20d%C3%ADas%2C%20quiero%20contratar%20una%20invitaci%C3%B3n%20digital"
+                  href="https://wa.me/51964586505/?text=Buenos%20d%C3%ADas%2C%20quiero%20contratar%20una%20invitaci%C3%B3n%20digital"
                   style="color: #f7e0a5;"
                 >
                   © 2026 Carlos Pasache
@@ -16413,7 +16420,7 @@
                   ><span style="color: #ffffff"
                     ><a
                       style="color: #ffffff"
-                      href="https://wa.me/+528446005641/?text=Buenos%20d%C3%ADas%2C%20quiero%20contratar%20una%20invitaci%C3%B3n%20digital"
+                      href="https://wa.me/+51964586505/?text=Buenos%20d%C3%ADas%2C%20quiero%20contratar%20una%20invitaci%C3%B3n%20digital"
                       target="_blank"
                       rel="noopener"
                       ><strong>Contáctanos</strong></a
