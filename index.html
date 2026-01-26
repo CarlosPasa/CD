@@ -12906,6 +12906,12 @@
                     const valorN = sanitizarValor(urlParams.get("n"));
                     const valorM = sanitizarValor(urlParams.get("m"));
                     console.log(valorN);
+                    try {
+                      await buscarFilaPorN(valorN); // warm-up
+                    } catch (e) {
+                      // ignorar
+                      console.log("warm-up"+valorN);
+                    }
                     // const API = "AIzaSyCdeTgHYYtj2XydHrpZPE0nkQlRFex57k8";
                     // const ID_CLIENT = "663625138811-o2sd98ehot530sd6och5b3vckk1qjbec.apps.googleusercontent.com";
                     try {
