@@ -12366,6 +12366,7 @@
                         function () {
                           var botonOcultar =
                             document.getElementById("boton-ocultar");
+                          if (botonOcultar) botonOcultar.style.display = "none";
                           var contenedor = document.getElementById(
                             "contenedor-a-ocultar"
                           );
@@ -12813,7 +12814,7 @@
                     text-align: center;
                   "
                 >
-                  Eduardo Villalba
+                  Invitado
                 </h2>
               </div>
             </div>
@@ -12896,6 +12897,32 @@
 
                     return fila || null;
                   }
+                  async function buscarConReintentos(valorN, maxIntentos = 10) {
+                    let intento = 0;
+                    let ultimoError;
+
+                    while (intento < maxIntentos) {
+                      try {
+                        intento++;
+                        console.log(`Intento ${intento}...`);
+
+                        const fila = await buscarFilaPorN(valorN);
+
+                        if (fila) {
+                          return fila; // éxito
+                        }
+                      } catch (error) {
+                        ultimoError = error;
+                      }
+
+                      // espera 500 ms antes del siguiente intento
+                      await new Promise(resolve => setTimeout(resolve, 500));
+                    }
+
+                    throw new Error(
+                      `No se pudo obtener la fila después de ${maxIntentos} intentos`
+                    );
+                  }
                   // Función para actualizar el contenido dinámico basado en las variables 'n' y 'm'
                   async function actualizarContenido() {
                     // Obtener los parámetros 'n' y 'm' de la URL
@@ -12906,21 +12933,16 @@
                     const valorN = sanitizarValor(urlParams.get("n"));
                     const valorM = sanitizarValor(urlParams.get("m"));
                     console.log(valorN);
-                    try {
-                      await buscarFilaPorN(valorN); // warm-up
-                    } catch (e) {
-                      // ignorar
-                      console.log("warm-up"+valorN);
-                    }
                     // const API = "AIzaSyCdeTgHYYtj2XydHrpZPE0nkQlRFex57k8";
                     // const ID_CLIENT = "663625138811-o2sd98ehot530sd6och5b3vckk1qjbec.apps.googleusercontent.com";
                     try {
-                      const fila = await buscarFilaPorN(valorN);
+                      const fila = await buscarConReintentos(valorN);
                       
                       // --- OCULTAR botones si ya respondió (fila[17]) ---
                       const respuesta = (fila?.[17] || "").toString().trim().toUpperCase(); // "SI" / "NO"
                       const btnConfirmar = document.getElementById("btnConfirmar");
                       const btnRechazar = document.getElementById("btnRechazar");
+                      const botonOcultar = document.getElementById("boton-ocultar");
 
                       if (respuesta === "SI" || respuesta === "NO") {
                         if (btnConfirmar) btnConfirmar.style.display = "none";
@@ -12961,6 +12983,7 @@
                             el.textContent = "Invitado";
                           } else {
                             el.textContent = `${invitado}`;
+                            if (botonOcultar) botonOcultar.style.display = "";
                           }
                         });
                     } catch (e) {
@@ -14414,7 +14437,7 @@
                 data-element_type="widget"
                 data-widget_type="text-editor.default"
               >
-                <div class="elementor-widget-container"><p>6:30 p.m.</p></div>
+                <div class="elementor-widget-container"><p>7:00 p.m.</p></div>
               </div>
               <div
                 class="elementor-element elementor-element-8ffafea elementor-widget-mobile__width-inherit elementor-widget elementor-widget-text-editor"
@@ -14517,7 +14540,7 @@
                 data-element_type="widget"
                 data-widget_type="text-editor.default"
               >
-                <div class="elementor-widget-container"><p>7:00 p.m.</p></div>
+                <div class="elementor-widget-container"><p>7:30 p.m.</p></div>
               </div>
               <div
                 class="elementor-element elementor-element-6f93afa elementor-widget-mobile__width-inherit elementor-widget elementor-widget-text-editor"
