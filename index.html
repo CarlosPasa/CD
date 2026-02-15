@@ -12943,8 +12943,17 @@
                       const btnConfirmar = document.getElementById("btnConfirmar");
                       const btnRechazar = document.getElementById("btnRechazar");
                       const botonOcultar = document.getElementById("boton-ocultar");
+                      const respuestaSi = document.getElementById("respuestaSi");
+                      const respuestaNo = document.getElementById("respuestaNo");
+
 
                       if (respuesta === "SI" || respuesta === "NO") {
+                        if (respuesta === "SI") {
+                          if (respuestaSi) respuestaSi.style.display = "";
+                        }
+                        if (respuesta === "NO") {
+                          if (respuestaNo) respuestaNo.style.display = "";
+                        }
                         if (btnConfirmar) btnConfirmar.style.display = "none";
                         if (btnRechazar) btnRechazar.style.display = "none";
                       } else {
@@ -13041,7 +13050,7 @@
                         if (btnRechazar) btnRechazar.style.display = "none";
                         const n = (new URLSearchParams(window.location.search).get("n") || "").trim();
                         const r = await enviarRespuesta(n, "SI");
-                        if (r.ok) alert("Excelente. Gracias por confirmar tu asistencia");
+                        if (r.ok) alert("Gracias por confirmar tu asistencia. ¡Nos vemos el 14 de marzo!");
                         else alert("Error: " + (r.error || "desconocido"));
                       });
 
@@ -13051,7 +13060,7 @@
                         if (btnRechazar) btnRechazar.style.display = "none";
                         const n = (new URLSearchParams(window.location.search).get("n") || "").trim();
                         const r = await enviarRespuesta(n, "NO");
-                        if (r.ok) alert("Lamentamos que no estes presente con nosotros. Agradecemos tu confirmación");
+                        if (r.ok) alert("Lamentamos que no puedas asistir. Gracias por avisarnos.");
                         else alert("Error: " + (r.error || "desconocido"));
                       });
 
@@ -14011,7 +14020,7 @@
                         <h2
                           class="elementor-heading-title elementor-size-default"
                         >
-                          La Mansión de Don Alfredo                          
+                          Mansión de Don Alfredo                          
                         </h2>
                         <h2
                           class="elementor-heading-title elementor-size-default"
@@ -14259,7 +14268,7 @@
                 data-element_type="widget"
                 data-widget_type="text-editor.default"
               >
-                <div class="elementor-widget-container"><p style="font-weight:bold">Formal</p><p>Evitar tonos blancos o similares</p></div>
+                <div class="elementor-widget-container"><p style="font-weight:bold">Formal</p><p>El blanco está reservado para la novia</p></div>
               </div>
             </div>
           </div>
@@ -15628,7 +15637,7 @@
             >
               <div class="elementor-widget-container">
                 <a
-                  href="wp-content/uploads/fotos/image6.jpg"
+                  href="wp-content/uploads/fotos/image24.jpeg"
                   data-elementor-open-lightbox="yes"
                   data-elementor-lightbox-title="Nuestro compromiso 5"
                   data-e-action-hash="#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJpZCI6MTcxMTQsInVybCI6Imh0dHBzOlwvXC9pbnZpdGFsaS5jb21cL3dwLWNvbnRlbnRcL3VwbG9hZHNcLzIwMjRcLzEwXC9tdWVzdHJhcy1ub3Zpb3MtMjgud2VicCJ9"
@@ -15638,16 +15647,16 @@
                     decoding="async"
                     width="700"
                     height="1024"
-                    src="wp-content/uploads/fotos/image6.jpg"
+                    src="wp-content/uploads/fotos/image24.jpg"
                     class="attachment-large size-large wp-image-17114"
                     alt=""
                     srcset="
-                      wp-content/uploads/fotos/image6.jpg   700w,
-                      wp-content/uploads/fotos/image6.jpg    205w,
-                      wp-content/uploads/fotos/image6.jpg   768w,
-                      wp-content/uploads/fotos/image6.jpg 1050w,
-                      wp-content/uploads/fotos/image6.jpg    600w,
-                      wp-content/uploads/fotos/image6.jpg           1080w
+                      wp-content/uploads/fotos/image24.jpg   700w,
+                      wp-content/uploads/fotos/image24.jpg    205w,
+                      wp-content/uploads/fotos/image24.jpg   768w,
+                      wp-content/uploads/fotos/image24.jpg 1050w,
+                      wp-content/uploads/fotos/image24.jpg    600w,
+                      wp-content/uploads/fotos/image24.jpg           1080w
                     "
                     sizes="(max-width: 700px) 100vw, 700px"
                   />
@@ -15758,7 +15767,7 @@
                 "
               >
                 <a
-                  href="wp-content/uploads/fotos/image17.jpg"
+                  href="wp-content/uploads/fotos/image23.jpg"
                   data-elementor-open-lightbox="yes"
                   data-elementor-lightbox-title="Nuestro compromiso 8"
                   data-e-action-hash="#elementor-action%3Aaction%3Dlightbox%26settings%3DeyJpZCI6MTcxMTMsInVybCI6Imh0dHBzOlwvXC9pbnZpdGFsaS5jb21cL3dwLWNvbnRlbnRcL3VwbG9hZHNcLzIwMjRcLzEwXC9tdWVzdHJhcy1ub3Zpb3MtMjcud2VicCJ9"
@@ -15768,16 +15777,16 @@
                     decoding="async"
                     width="700"
                     height="1024"
-                    src="wp-content/uploads/fotos/image17.jpg"
+                    src="wp-content/uploads/fotos/image23.jpg"
                     class="attachment-large size-large wp-image-17113"
                     alt=""
                     srcset="
-                      wp-content/uploads/fotos/image17.jpg   700w,
-                      wp-content/uploads/fotos/image17.jpg    205w,
-                      wp-content/uploads/fotos/image17.jpg   768w,
-                      wp-content/uploads/fotos/image17.jpg 1050w,
-                      wp-content/uploads/fotos/image17.jpg    600w,
-                      wp-content/uploads/fotos/image17.jpg           1080w
+                      wp-content/uploads/fotos/image23.jpg   700w,
+                      wp-content/uploads/fotos/image23.jpg    205w,
+                      wp-content/uploads/fotos/image23.jpg   768w,
+                      wp-content/uploads/fotos/image23.jpg 1050w,
+                      wp-content/uploads/fotos/image23.jpg    600w,
+                      wp-content/uploads/fotos/image23.jpg           1080w
                     "
                     sizes="(max-width: 700px) 100vw, 700px"
                   />
@@ -15983,7 +15992,7 @@
                 >
                   <div class="elementor-widget-container">
                     <p style="text-align: center">
-                      Su presencia y sus buenos deseos son nuestro mejor regalo.
+                      Tu presencia y tus buenos deseos son nuestro mejor regalo.
                       Si desean hacernos llegar algún presente estaremos muy
                       agradecidos.
                     </p>
@@ -16177,7 +16186,7 @@
                 >
                   <div class="elementor-widget-container">
                     <p style="text-align: center">
-                      Obsequios tradicionales enviar a Calle Las Raflesias Mz CA Lt 42 - Urb. Miraflores Country Club
+                      Pueden enviar obsequios tradicionales a Ca. Las Raflesias Mz CA Lt 42 - Urb. Miraflores Country Club
                     </p>
                   </div>
                 </div>
@@ -16214,7 +16223,7 @@
             data-widget_type="text-editor.default"
           >
             <div class="elementor-widget-container">
-              <p class="p1">
+              <p class="p1" style="font-size:16px;font-weight:bold">
                 Amamos a sus niños y queremos que ustedes disfruten y bailen sin
                 parar, es por ello que la invitación es solo para adultos
               </p>
@@ -16428,14 +16437,36 @@
               </div>
             </div>
             <div
+            class="elementor-element elementor-element-6512a17 elementor-widget__width-initial elementor-invisible elementor-widget elementor-widget-text-editor"
+            data-id="6512a17"
+            data-element_type="widget"
+            data-settings='{"_animation":"fadeInUp"}'
+            data-widget_type="text-editor.default"
+          >
+            <div class="elementor-widget-container">
+              <div
+                id="comp-luetk4fh3"
+                class="HcOXKn c9GqVL QxJLC3 comp-luetk4fh3 wixui-rich-text"
+                data-testid="richTextElement"
+              >
+                <p id="respuestaSi" class="p1" style="text-align: center;display:none">
+                  Gracias por confirmar tu asistencia. ¡Nos vemos el 14 de marzo!
+                </p>
+                <p id="respuestaNo" class="p1" style="text-align: center;display:none">
+                  Lamentamos que no puedas asistir. Gracias por avisarnos.
+                </p>
+              </div>
+            </div>
+          </div>
+            <div
               class="elementor-element elementor-element-f1c4427 elementor-align-center elementor-mobile-align-center elementor-widget elementor-widget-button"
               data-id="f1c4427"
               data-element_type="widget"
               data-settings='{"_animation_mobile":"fadeInUp"}'
               data-widget_type="button.default"
-            >
+            >              
               <div class="elementor-widget-container">
-                <div class="elementor-button-wrapper">
+                <div class="elementor-button-wrapper">                  
                   <a
                     class="elementor-button elementor-button-link elementor-size-sm"
                     id="btnConfirmar"
@@ -16448,7 +16479,7 @@
                   </a>
                 </div>
               </div>
-            </div>
+            </div>            
             <div
               class="elementor-element elementor-element-f1c4427 elementor-align-center elementor-mobile-align-center elementor-widget elementor-widget-button"
               data-id="f1c4427"
